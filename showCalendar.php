@@ -72,40 +72,8 @@
                 
         }
         return $dayName;
-    }
-    //show the calendar of the month given as parameter 
-    //$calendar is an associative array of arrays
-    //count($arrayName) returns the array length
-    //this function show a HTML table for one month
-    function ShowMonth($calendar, $monthName)
-    {
-        $day=1;
-        
-        $result="<table border=1>";
-        $result=$result."<caption> mois de ".$monthName."</caption>";
-
-        while($day<=count($calendar[$monthName]))
-        {
-            $result=$result."<tr>";
-            //show one line(a week)
-            
-            for ($i=0; $i <7 ; $i++) { 
-                # code...
-            
-                if($day<=count($calendar[$monthName]))
-                {
-                    $result=$result."<td>".$day." ".$calendar[$monthName][$day-1]."</td>";
-                    $day++;
-                }
-            }
-            $result=$result."</tr>";
-        }
-        $result=$result."</table>";
-        echo $result;
-        print "<br><br>";
-
-    }
-
+    } 
+    
     #associative arrays of months
     #key=>value
     #key is the month name
@@ -114,7 +82,7 @@
                     "Avril"=>array(),"Mai"=>array(),"Juin"=>array(),
                     "Juillet"=>array(),"Aout"=>array(),"Septembre"=>array(),
                     "Octobre"=>array(),"Nouvembre"=>array(),"Décembre"=>array()
-);
+    );
 
     //access to "Janvier" value (using key)
     // $janvierCald=$calendar["Janvier"];(1)
@@ -140,16 +108,51 @@
     //call the fillCalendar function
     fillCalendar($calendar);
 
-    //show the clandar array
-    echo "The clendar of 2021 is <pre>";
-    print_r($calendar);
-    echo "</pre>";
+    //show the $calendar associative array values
+    function showArray($calendar)
+    {
+        echo "The 2021 calendar <pre>";
+         print_r($calendar); 
+         echo "</pre>";
+    }
+    showArray($calendar);
+    //show the calendar of the month given as parameter 
+    //$calendar is an associative array of arrays
+    //count($arrayName) returns the array length
+    //this function show a HTML table for one month
+    
+    function showMonthCalendar($calendar,$month)
+    {
+        $day=1;
+        $result="<table border=1>";
+        $result.="<caption>Mois de ".$month."</caption>";
+        while($day<=count($calendar[$month]))
+        {
+            $result.="<tr>";
+            for ($i=0; $i < 7; $i++) { 
+                if($day<=daysCount($month))
+                {
+                    $result.="<td>".$day." ".$calendar[$month][$day-1]."</td>";
+                    $day++;
+                }
+            }
+            $result.="</tr>";
 
-    //show the 2021 year calendar
-    foreach($calendar as $month => $days){
-        ShowMonth($calendar,"Janvier");
-        
-  }
+        }
+        $result.="</table>";
+        echo $result, "<br><br>";
+       
+    }
+    
+    
+    //show all months calendar as HTML tables
+    function showYearCalendar($calendar)
+    {
+        foreach ($calendar as $month => $days) {
+            showMonthCalendar($calendar,$month);
+        }
+    }
+    showYearCalendar($calendar);
     ?>
 </body>
 </html>
