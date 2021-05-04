@@ -120,29 +120,53 @@
     //$calendar is an associative array of arrays
     //count($arrayName) returns the array length
     //this function show a HTML table for one month
-    
-    function showMonthCalendar($calendar,$month)
+
+    ###First version
+    function showMonthCalendar($calendar, $month)
     {
-        $day=1;
         $result="<table border=1>";
         $result.="<caption>Mois de ".$month."</caption>";
-        while($day<=count($calendar[$month]))
-        {
-            $result.="<tr>";
-            for ($i=0; $i < 7; $i++) { 
-                if($day<=daysCount($month))
-                {
-                    $result.="<td>".$day." ".$calendar[$month][$day-1]."</td>";
-                    $day++;
-                }
+        $result.="<tr>";
+        for($day=1;$day <= count($calendar[$month]);$day++) { 
+            if($day%7!=0)
+            {
+                $result.="<td>".$day." ".$calendar[$month][$day-1]."</td>";
+                
             }
-            $result.="</tr>";
+            else
+            {
+                $result.="</tr>";
+            }
 
         }
         $result.="</table>";
-        echo $result, "<br><br>";
-       
+        echo $result,"<br><br>";
     }
+
+    ###Second Version
+    
+    // function showMonthCalendar($calendar,$month)
+    // {
+    //     $day=1;
+    //     $result="<table border=1>";
+    //     $result.="<caption>Mois de ".$month."</caption>";
+    //     while($day<=count($calendar[$month]))
+    //     {
+    //         $result.="<tr>";
+    //         for ($i=0; $i < 7; $i++) { 
+    //             if($day<=daysCount($month))
+    //             {
+    //                 $result.="<td>".$day." ".$calendar[$month][$day-1]."</td>";
+    //                 $day++;
+    //             }
+    //         }
+    //         $result.="</tr>";
+
+    //     }
+    //     $result.="</table>";
+    //     echo $result, "<br><br>";
+       
+    // }
     
     
     //show all months calendar as HTML tables
